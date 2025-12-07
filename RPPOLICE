@@ -66,7 +66,7 @@ Title.BackgroundColor3 = Color3.fromRGB(0, 120, 0) -- verde natal
 Title.TextColor3 = Color3.new(1,1,1)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 19
-Title.Text = "🎅✨ Lu Hub - Prompts de RP feito por thur. 🎄"
+Title.Text = "🎅✨ Lu Hub - Prompts de RP BY Thur. 🎄"
 local TitleCorner = Instance.new("UICorner", Title)
 TitleCorner.CornerRadius = UDim.new(0, 18)
 
