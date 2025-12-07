@@ -1,0 +1,146 @@
+-- 🎄 LU HUB PROMPTS RP – TEMA DE NATAL 🎅
+local Players = game:GetService("Players")
+local StarterGui = Instance.new("ScreenGui")
+StarterGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+StarterGui.ResetOnSpawn = false
+StarterGui.Name = "LuHubRPNatal"
+
+-- ⚡ Função de copiar + aviso natalino
+local function copy(text)
+    setclipboard(text)
+
+    local Notify = Instance.new("TextLabel")
+    Notify.Parent = StarterGui
+    Notify.Size = UDim2.new(0, 260, 0, 45)
+    Notify.Position = UDim2.new(0.5, -130, 0.1, 0)
+    Notify.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Notify.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Notify.Font = Enum.Font.GothamBold
+    Notify.TextSize = 16
+    Notify.Text = "🎄 Texto copiado! Feliz Natal! 🎅✨"
+    Notify.BorderSizePixel = 0
+
+    local UICorner = Instance.new("UICorner")
+    UICorner.Parent = Notify
+    UICorner.CornerRadius = UDim.new(0, 12)
+
+    -- Luzinhas natalinas piscando
+    for i = 1, 3 do
+        Notify.BorderColor3 = Color3.fromRGB(255, 0, 0)
+        Notify.BorderSizePixel = 2
+        task.wait(0.15)
+        Notify.BorderColor3 = Color3.fromRGB(0, 255, 0)
+        task.wait(0.15)
+    end
+
+    -- Fade out
+    task.delay(1.6, function()
+        for i = 1, 20 do
+            Notify.TextTransparency = i/20
+            Notify.BackgroundTransparency = i/20
+            task.wait(0.05)
+        end
+        Notify:Destroy()
+    end)
+end
+
+-- 🎄 MENU PRINCIPAL
+local Main = Instance.new("Frame")
+Main.Parent = StarterGui
+Main.Size = UDim2.new(0, 350, 0, 400)
+Main.Position = UDim2.new(0.5, -175, 0.5, -200)
+Main.Active = true
+Main.Draggable = true
+Main.Name = "MenuNatal"
+Main.BackgroundColor3 = Color3.fromRGB(200, 0, 0) -- vermelho natal
+
+local Corner = Instance.new("UICorner")
+Corner.Parent = Main
+Corner.CornerRadius = UDim.new(0, 18)
+
+-- ⭐ TÍTULO NATALINO
+local Title = Instance.new("TextLabel")
+Title.Parent = Main
+Title.Size = UDim2.new(1, 0, 0, 45)
+Title.BackgroundColor3 = Color3.fromRGB(0, 120, 0) -- verde natal
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 19
+Title.Text = "🎅✨ Lu Hub - Prompts de RP 🎄"
+local TitleCorner = Instance.new("UICorner", Title)
+TitleCorner.CornerRadius = UDim.new(0, 18)
+
+-- ❄️ NEVE CAINDO (animada)
+task.spawn(function()
+    while true do
+        local snow = Instance.new("Frame")
+        snow.Parent = Main
+        snow.Size = UDim2.new(0, math.random(3,6), 0, math.random(3,6))
+        snow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        snow.Position = UDim2.new(math.random(), 0, -0.05, 0)
+        snow.BorderSizePixel = 0
+        snow.ZIndex = 10
+
+        task.spawn(function()
+            for i = 1, 60 do
+                snow.Position = snow.Position + UDim2.new(0, math.random(-2, 2), 0, 4)
+                task.wait(0.03)
+            end
+            snow:Destroy()
+        end)
+
+        task.wait(0.15)
+    end
+end)
+
+-- 📜 SCROLL COM PROMPTS
+local Scroll = Instance.new("ScrollingFrame")
+Scroll.Parent = Main
+Scroll.Size = UDim2.new(1, -14, 1, -60)
+Scroll.Position = UDim2.new(0, 7, 0, 50)
+Scroll.CanvasSize = UDim2.new(0, 0, 4, 0)
+Scroll.ScrollBarThickness = 6
+Scroll.BackgroundColor3 = Color3.fromRGB(255, 240, 240)
+Scroll.BorderSizePixel = 0
+
+local List = Instance.new("UIListLayout")
+List.Parent = Scroll
+List.Padding = UDim.new(0, 6)
+
+-- 🎄 PROMPTS
+local PromptsRP = {
+    {nome="PM - Abordagem", texto="Polícia Militar! Encoste as mãos na cabeça e não faça movimentos bruscos!"},
+    {nome="PM - Documento", texto="Senhor(a), apresente seu documento de identificação, por favor."},
+    {nome="PM - Veículo", texto="Desligue o veículo e permaneça dentro até nova ordem."},
+
+    {nome="PRF - Parada", texto="PRF! Encoste o veículo no acostamento imediatamente."},
+    {nome="PRF - Inspeção", texto="Estamos fazendo vistoria de rotina. Colabore, por favor."},
+
+    {nome="FBI - Mandado", texto="FBI! Temos um mandado federal. Não se mova!"},
+    {nome="FBI - Perímetro", texto="Área sob investigação federal. Afaste-se."},
+
+    {nome="SWAT - Invasão", texto="SWAT! Solte qualquer arma e fique no chão agora!"},
+    {nome="SWAT - Perímetro", texto="Equipe avançando. Perímetro seguro."},
+
+    {nome="RP - Saudação", texto="Boa tarde, senhor(a). Tudo tranquilo hoje?"},
+    {nome="RP - Explicação", texto="Estamos averiguando uma denúncia, sua colaboração é importante."}
+}
+
+-- 🎁 Botões
+for _, item in pairs(PromptsRP) do
+    local Btn = Instance.new("TextButton")
+    Btn.Parent = Scroll
+    Btn.Size = UDim2.new(1, -10, 0, 40)
+    Btn.BackgroundColor3 = Color3.fromRGB(255, 90, 90)
+    Btn.TextColor3 = Color3.new(1,1,1)
+    Btn.Font = Enum.Font.GothamBold
+    Btn.TextSize = 15
+    Btn.Text = "🎄 " .. item.nome .. " 🎅"
+    
+    local BtnCorner = Instance.new("UICorner", Btn)
+    BtnCorner.CornerRadius = UDim.new(0, 12)
+
+    Btn.MouseButton1Click:Connect(function()
+        copy(item.texto)
+    end)
+end
