@@ -1,81 +1,196 @@
--- Carregar Rayfield
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+-- 🔥 RESET RAYFIELD (OBRIGATÓRIO PRO XENO)
+pcall(function()
+    if getgenv().Rayfield then
+        getgenv().Rayfield:Destroy()
+        getgenv().Rayfield = nil
+    end
+end)
 
--- WINDOW
+-- 📦 LOAD RAYFIELD
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+getgenv().Rayfield = Rayfield
+
+-- 🪟 JANELA
 local Window = Rayfield:CreateWindow({
-   Name = "AutistaHub",
+   Name = "Autista Hub | RP Police",
    Icon = 0,
-   LoadingTitle = "Autista hub",
+   LoadingTitle = "Autista Hub",
    LoadingSubtitle = "by Nightzx",
-   ShowText = "Autista Hub Developments",
+   ShowText = "Rayfield",
    Theme = "Default",
    ToggleUIKeybind = "K",
 
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false,
-
    ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil,
-      FileName = "Autistahub2026"
+      Enabled = false
    },
 
-   Discord = {
-      Enabled = false,
-      Invite = "noinvitelink",
-      RememberJoins = true
-   },
-
-   -- 🔐 KEY SYSTEM
+   -- 🔐 KEY
    KeySystem = true,
    KeySettings = {
       Title = "Autista Hub",
-      Subtitle = "Sistema de Key",
-      Note = "Use a key correta para acessar",
-      FileName = "AutistaHubKey",
-      SaveKey = true,
+      Subtitle = "Digite a Key",
+      Note = "Acesso restrito",
+      FileName = "AutistaHub",
+      SaveKey = false,
       GrabKeyFromSite = false,
-      Key = {"Autistahub2026"} -- 🔑 KEY AQUI
+      Key = {"Autistahub2026"}
    }
 })
 
--- TAB
-local Tab = Window:CreateTab("👮 Prompts Policiais", 4483362458)
-Tab:CreateSection("RP – Polícia / Militar")
+-- 📁 TABS
+local PoliceTab = Window:CreateTab("👮 Polícia", 4483362458)
+local InfoTab = Window:CreateTab("ℹ️ Info", 4483362458)
 
--- FUNÇÃO COPIAR
-local function copiar(texto)
-   pcall(function()
-      setclipboard(texto)
-   end)
-
-   Rayfield:Notify({
-      Title = "Copiado!",
-      Content = "Prompt copiado para o CTRL + C",
-      Duration = 2
-   })
-end
-
--- PROMPTS
-local prompts = {
-   "Boa noite, senhor. Polícia Militar, poderia se identificar por gentileza?",
-   "Documentos do veículo e habilitação, por favor.",
-   "O senhor está sendo abordado em atitude suspeita.",
-   "Desça do veículo com as mãos visíveis.",
-   "Permaneça calmo e siga minhas instruções.",
-   "O senhor tem ciência do motivo da abordagem?",
-   "Encoste o veículo no acostamento imediatamente.",
-   "O senhor está detido para averiguação.",
-   "Coloque as mãos na cabeça e vire-se de costas.",
-   "Direitos constitucionais serão informados em seguida."
+----------------------------------------------------------------
+-- 📜 LISTA DE PROMPTS (EXEMPLO)
+----------------------------------------------------------------
+local Prompts = {
+    {nome = "Abordagem Padrão", texto = "Senhor, encoste o veículo e mantenha as mãos visíveis"},
+    {nome = "Revista", texto = "O senhor está sendo revistado por medida de segurança"},
+    {nome = "Prisão", texto = "O senhor está preso e tem o direito de permanecer em silêncio"},
+    {nome = "Documentos", texto = "Documentos do veículo e CNH, por favor"},
+    {nome = "Advertência", texto = "Dessa vez será apenas uma advertência verbal"},
 }
 
--- BOTÕES
-for i, texto in ipairs(prompts) do
-   Tab:CreateButton({
-      Name = "📋 Prompt " .. i,
-      Callback = function()
-         copiar(texto)
+----------------------------------------------------------------
+-- 🔎 CAIXA DE PESQUISA
+----------------------------------------------------------------
+PoliceTab:CreateInput({
+   Name = "Pesquisar Prompt",
+   PlaceholderText = "Digite (ex: abordagem, prisão...)",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(text)
+      for _, v in pairs(Prompts) do
+         if string.find(string.lower(v.nome), string.lower(text)) then
+            Rayfield:Notify({
+               Title = v.nome,
+               Content = v.texto,
+               Duration = 5
+            })
+         end
       end
-   })
+   end
+})
+
+----------------------------------------------------------------
+-- 📌 BOTÕES DE PROMPTS
+----------------------------------------------------------------
+for _, prompt in pairs(Prompts) do
+    PoliceTab:CreateButton({
+        Name = prompt.nome,
+        Callback = function()
+            setclipboard(prompt.texto)
+            Rayfield:Notify({
+                Title = "Copiado",
+                Content = "Prompt copiado para a área de transferência",
+                Duration = 3
+            })
+        end
+    })
 end
+
+----------------------------------------------------------------
+-- ℹ️ INFO
+----------------------------------------------------------------
+InfoTab:CreateParagraph({
+   Title = "Autista Hub",
+   Content = "Hub de prompts RP para policiais.\n\n• Clique para copiar\n• Cole no chat\n• Use no RP"
+})
+-- 🔥 RESET RAYFIELD (OBRIGATÓRIO PRO XENO)
+pcall(function()
+    if getgenv().Rayfield then
+        getgenv().Rayfield:Destroy()
+        getgenv().Rayfield = nil
+    end
+end)
+
+-- 📦 LOAD RAYFIELD
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+getgenv().Rayfield = Rayfield
+
+-- 🪟 JANELA
+local Window = Rayfield:CreateWindow({
+   Name = "Autista Hub | RP Police",
+   Icon = 0,
+   LoadingTitle = "Autista Hub",
+   LoadingSubtitle = "by Nightzx",
+   ShowText = "Rayfield",
+   Theme = "Default",
+   ToggleUIKeybind = "K",
+
+   ConfigurationSaving = {
+      Enabled = false
+   },
+
+   -- 🔐 KEY
+   KeySystem = true,
+   KeySettings = {
+      Title = "Autista Hub",
+      Subtitle = "Digite a Key",
+      Note = "Acesso restrito",
+      FileName = "AutistaHub",
+      SaveKey = false,
+      GrabKeyFromSite = false,
+      Key = {"Autistahub2026"}
+   }
+})
+
+-- 📁 TABS
+local PoliceTab = Window:CreateTab("👮 Polícia", 4483362458)
+local InfoTab = Window:CreateTab("ℹ️ Info", 4483362458)
+
+----------------------------------------------------------------
+-- 📜 LISTA DE PROMPTS (EXEMPLO)
+----------------------------------------------------------------
+local Prompts = {
+    {nome = "Abordagem Padrão", texto = "Senhor, encoste o veículo e mantenha as mãos visíveis"},
+    {nome = "Revista", texto = "O senhor está sendo revistado por medida de segurança"},
+    {nome = "Prisão", texto = "O senhor está preso e tem o direito de permanecer em silêncio"},
+    {nome = "Documentos", texto = "Documentos do veículo e CNH, por favor"},
+    {nome = "Advertência", texto = "Dessa vez será apenas uma advertência verbal"},
+}
+
+----------------------------------------------------------------
+-- 🔎 CAIXA DE PESQUISA
+----------------------------------------------------------------
+PoliceTab:CreateInput({
+   Name = "Pesquisar Prompt",
+   PlaceholderText = "Digite (ex: abordagem, prisão...)",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(text)
+      for _, v in pairs(Prompts) do
+         if string.find(string.lower(v.nome), string.lower(text)) then
+            Rayfield:Notify({
+               Title = v.nome,
+               Content = v.texto,
+               Duration = 5
+            })
+         end
+      end
+   end
+})
+
+----------------------------------------------------------------
+-- 📌 BOTÕES DE PROMPTS
+----------------------------------------------------------------
+for _, prompt in pairs(Prompts) do
+    PoliceTab:CreateButton({
+        Name = prompt.nome,
+        Callback = function()
+            setclipboard(prompt.texto)
+            Rayfield:Notify({
+                Title = "Copiado",
+                Content = "Prompt copiado para a área de transferência",
+                Duration = 3
+            })
+        end
+    })
+end
+
+----------------------------------------------------------------
+-- ℹ️ INFO
+----------------------------------------------------------------
+InfoTab:CreateParagraph({
+   Title = "Autista Hub",
+   Content = "Hub de prompts RP para policiais.\n\n• Clique para copiar\n• Cole no chat\n• Use no RP"
+})
