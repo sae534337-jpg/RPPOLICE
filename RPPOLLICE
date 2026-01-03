@@ -17,7 +17,7 @@ local Window = Rayfield:CreateWindow({
    ConfigurationSaving = {
       Enabled = true,
       FolderName = nil,
-      FileName = "Big Hub"
+      FileName = "Autistahub2026"
    },
 
    Discord = {
