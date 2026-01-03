@@ -3,11 +3,11 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 -- WINDOW
 local Window = Rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
+   Name = "AutistaHub",
    Icon = 0,
    LoadingTitle = "Autista hub",
    LoadingSubtitle = "by Nightzx",
-   ShowText = "Rayfield",
+   ShowText = "Autista Hub Developments",
    Theme = "Default",
    ToggleUIKeybind = "K",
 
